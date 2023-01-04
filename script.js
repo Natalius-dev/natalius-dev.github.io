@@ -6,10 +6,7 @@ function httpGet(theUrl)
     return xmlHttp.responseText;
 }
 
-const id = "d62acd24a757233d43b0";
-const secret = "5cf44622dfe3109ab82dbc57cd6bbc4fcf62d1c6";
-
-const repos = JSON.parse(httpGet("https://api.github.com/users/natalius-dev/repos?sort=created&client_id="+id+"&client_secret="+secret));
+const repos = JSON.parse(httpGet("https://api.github.com/users/natalius-dev/repos?sort=created"));
 const container = document.getElementById("container");
 
 for(let i = 0; i < repos.length; i++) {
@@ -18,7 +15,7 @@ for(let i = 0; i < repos.length; i++) {
     var card = document.createElement("div");
     card.classList.add("card","flex-grow-1","m-2");
 
-    const contents = JSON.parse(httpGet("https://api.github.com/repos/natalius-dev/"+repo_name+"/contents/?client_id="+id+"&client_secret="+secret))
+    const contents = JSON.parse(httpGet("https://api.github.com/repos/natalius-dev/"+repo_name+"/contents/"))
     let image_file = "thumbnail 404.svg";
     const url = repos[i.toString()].html_url;
     for(let i = 0; i < contents.length; i++) {
@@ -49,7 +46,7 @@ for(let i = 0; i < repos.length; i++) {
     card_text.classList.add("card-text","text-muted");
     card_text.innerHTML = repos[i.toString()].description;
 
-    const deployments = JSON.parse(httpGet("https://api.github.com/repos/natalius-dev/"+repo_name+"/deployments?client_id="+id+"&client_secret="+secret))
+    const deployments = JSON.parse(httpGet("https://api.github.com/repos/natalius-dev/"+repo_name+"/deployments"))
     card_body.appendChild(card_title);
     card_body.appendChild(card_text);
     if(deployments.length > 0) {
